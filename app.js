@@ -1,7 +1,7 @@
 /// App
 const express = require('express');
 const expressHbs = require('express-handlebars');
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT
 const app = express();
 
 /// Parse
