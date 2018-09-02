@@ -3,12 +3,15 @@ const express = require('express');
 const expressHbs = require('express-handlebars');
 const PORT = process.env.PORT
 const app = express();
+const methOver = require('method-override');
 
 /// Parse
 const bp = require('body-parser');
 
 /// USE
 app.use(bp.urlencoded({ extended: true }));
+app.use(methOver('_method'));
+
 // app.use(express.static('public'));
 app.engine('.hbs', expressHbs({ defaultLayout: 'main', extname: '.hbs'}));
 app.set('view engine', '.hbs');
@@ -66,7 +69,7 @@ app.set('view engine', '.hbs');
     });
 
     //////////EDIT PRODUCT//////////
-    app.put('/products/:id', (req, res) => {
+    app.put('/products/:id/edit', (req, res) => {
         console.log('Put', req.body)
 
     });

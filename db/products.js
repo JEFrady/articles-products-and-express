@@ -1,7 +1,7 @@
 class ProductInventory {
     constructor() {
-        this._count = 1;
-        this._storage = [];
+        this._count = 2;
+        this._storage = [{name: 'Orange', price: '.33', inventory: '333', id: 1}];
     }
     all() {
         return [... this._storage];
@@ -22,6 +22,7 @@ class ProductInventory {
         return item.id;
     }
     updateItemById(id) {
+
 
 
     }
