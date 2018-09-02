@@ -21,39 +21,53 @@ app.set('view engine', '.hbs');
 
     //////////HOME//////////
     app.get('/products', (req, res) => {
+        console.log('Render /products page')
         const items = prodInv.all();
-        console.log('Product list: ', items)
         res.render('home', { items });
     });
 
     //////////NEW PRODUCT FORM//////////
     app.get('/products/new', (req, res) => {
-        console.log('Render /products/new')
+        console.log('Render /products/new page')
         res.render('form');
     });
 
     //////////PDP//////////
     app.get('/products/:id', (req, res) => {
+        console.log('Render /products/:id page')
         const { id } = req.params;
         const item = prodInv.getItemById(id);
-        console.log('item', item);
+        // console.log('Product', item);
         res.render('detail', item);
     });
 
     //////////EDIT//////////
     app.get('/products/:id/edit', (req, res) => {
+        console.log('Render /products/:id/edit page')
+        const { id } = req.params;
+        const item = prodInv.getItemById(id);
+        // console.log('Product', item);
+        res.render('editform', item);
 
     });
 
     //////////CREATE PRODUCT//////////
     app.post('/products/new', (req, res) => {
         const item = req.body;
-        prodInv.add(item);
-        res.redirect('/products')
+        if (item.name !== '' && item.price !== '' && item.inventory !== '') {
+            prodInv.add(item);
+            res.redirect('/products')  
+        }
+        else {
+            console.log('Unknown error')
+        }
+        
+        
     });
 
     //////////EDIT PRODUCT//////////
-    app.put('/products:id', (req, res) => {
+    app.put('/products/:id', (req, res) => {
+        console.log('Put', req.body)
 
     });
 
