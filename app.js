@@ -26,13 +26,13 @@ app.set('view engine', '.hbs');
     app.get('/products', (req, res) => {
         console.log('Render /products page')
         const items = prodInv.all();
-        res.render('home', { items });
+        res.render('index', { items });
     });
 
     //////////NEW PRODUCT FORM//////////
     app.get('/products/new', (req, res) => {
         console.log('Render /products/new page')
-        res.render('form');
+        res.render('new');
     });
 
     //////////PDP//////////
@@ -40,8 +40,8 @@ app.set('view engine', '.hbs');
         console.log('Render /products/:id page')
         const { id } = req.params;
         const item = prodInv.getItemById(id);
-        // console.log('Product', item);
-        res.render('detail', item);
+        console.log('Product', item);
+        res.render('products', item);
     });
 
     //////////EDIT//////////
@@ -50,7 +50,7 @@ app.set('view engine', '.hbs');
         const { id } = req.params;
         const item = prodInv.getItemById(id);
         // console.log('Product', item);
-        res.render('editform', item);
+        res.render('edit', item);
 
     });
 
@@ -64,21 +64,26 @@ app.set('view engine', '.hbs');
         else {
             console.log('Unknown error')
         }
-        
-        
     });
 
     //////////EDIT PRODUCT//////////
     app.put('/products/:id/edit', (req, res) => {
-        console.log('Put', req.body)
+        const { id } = req.params;
+        const item = prodInv.updateItemById(id, req);
 
+        console.log('Put', item)
+
+        res.redirect('/products') 
     });
 
     //////////DELETE PRODUCT//////////
     app.delete('/products/:id', (req, res) => {
-
+        const { id } = req.params;
+        const item = prodInv.deleteItemById(id);
+        res.redirect('/products')
     });
 
+///ARTICLES//////////////////////////////////////////////////
 
 /// LISTEN
 app.listen( PORT, () => {
