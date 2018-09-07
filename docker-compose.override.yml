@@ -2,7 +2,7 @@ version: '3'
 services:
   my-app:
     image: jefrady/demo-website:${IMAGE_VERSION}-local
-    command: ["./node_modules/.bin/nodemon", "app.js"]
+    command: ['npm', 'run', 'dev']
     container_name: my-app
     volumes:
       - ".:/app/:rw"
@@ -11,6 +11,8 @@ services:
       NODE_ENV: development
     ports:
       - "${PORT}:${PORT}"
+      - '3000:3000'
+      - '3001:3001'
     networks:
       - my-app-network
 
